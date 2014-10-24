@@ -1,47 +1,48 @@
 package com.github.armanddu.intraepitechrequest;
 
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
-public class IntraEpitechRequestTask {
+import retrofit.RestAdapter;
 
-	private final String			DOMAIN	= "https://" + "intra.epitech.eu";
-	public static final MediaType	JSON	= MediaType
-													.parse("application/json; charset=utf-8");
-	private OkHttpClient			client;
-	private CookieManager			mCookieManager;
+public class IntraEpitechRequestTask
+		implements IntraEpitechRequestService {
 
-	public IntraEpitechRequestTask() {
-		client = new OkHttpClient();
-	}
+	private final String				DOMAIN	= "https://"
+														+ "intra.epitech.eu";
+	private CookieManager				mCookieManager;
+	private IntraEpitechRequestService	mService;
 
-	public String connect(String login, String password) throws IOException,
-			URISyntaxException {
-
-		JSONObject jObj = new JSONObject();
-		jObj.put("login", login);
-		jObj.put("password", password);
+	public IntraEpitechRequestTask() throws URISyntaxException {
+		RestAdapter adaptater = new RestAdapter.Builder()
+				.setLogLevel(RestAdapter.LogLevel.FULL).setEndpoint(DOMAIN)
+				.build();
 		mCookieManager = new CookieManager();
 		HttpCookie cookie = new HttpCookie("language", "fr");
+
 		cookie.setPath("/");
 		cookie.setDomain(DOMAIN);
 		mCookieManager.getCookieStore().add(new URI(DOMAIN), cookie);
 		CookieHandler.setDefault(mCookieManager);
+		mService = adaptater.create(IntraEpitechRequestService.class);
+	}
 
-		return post("/", jObj);
+	public JsonObject connect(String login, String password) {
+		return mService.connect(login, password);
+	}
 
+	public JsonObject getService(String Service) {
+		return mService.getService(Service);
+	}
+
+	public JsonObject postToken(String tokenUrl, String token, String note,
+			String comment) {
+		return mService.postToken(tokenUrl, token, note, comment);
 	}
 
 	public void disconnect() {
@@ -49,22 +50,4 @@ public class IntraEpitechRequestTask {
 		mCookieManager = null;
 	}
 
-	public String get(String path) throws IOException {
-		Request request = new Request.Builder().url(getUrl(path)).build();
-
-		Response response = client.newCall(request).execute();
-		return response.body().string();
-	}
-
-	public String post(String path, JSONObject json) throws IOException {
-		RequestBody body = RequestBody.create(JSON, json.toString());
-		Request request = new Request.Builder().url(getUrl(path)).post(body)
-				.build();
-		Response response = client.newCall(request).execute();
-		return response.body().string();
-	}
-
-	private String getUrl(String path) {
-		return DOMAIN + path + "?format=json";
-	}
 }

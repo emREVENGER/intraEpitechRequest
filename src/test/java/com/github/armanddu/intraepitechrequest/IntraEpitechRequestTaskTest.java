@@ -8,11 +8,14 @@ import java.io.IOException;
 import java.io.Reader;
 import java.net.URISyntaxException;
 
-import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import retrofit.RetrofitError;
+
+import com.google.gson.JsonObject;
 
 /**
  * Unit test for simple App.
@@ -26,7 +29,7 @@ public class IntraEpitechRequestTaskTest {
 	private static final int		SECOND_PRIORITY	= 1;
 	private static final int		THIRD_PRIORITY	= 2;
 	private static final int		LAST_PRIORITY	= 3;
-	private IntraEpitechRequestTask	mintraTaskRequest;
+	private IntraEpitechRequestTask	mIntraTaskRequest;
 	private String					mLogin;
 	private String					mPassword;
 
@@ -59,90 +62,44 @@ public class IntraEpitechRequestTaskTest {
 			mPassword = res[1];
 			file.close();
 			bufferFile.close();
-			mintraTaskRequest = new IntraEpitechRequestTask();
+			mIntraTaskRequest = new IntraEpitechRequestTask();
 		} catch (FileNotFoundException e) {
 			Assert.fail();
 		} catch (IOException e) {
 			Assert.fail();
+		} catch (URISyntaxException e) {
+			Assert.fail();
 		}
 	}
 
-	@Test(priority = FIRST_PRIORITY)
+	@Test(priority = FIRST_PRIORITY, expectedExceptions = RetrofitError.class)
 	public void getWithoutLogin() {
-		try {
-			String res = mintraTaskRequest.get("/");
-			Assert.assertTrue(res
-					.contains("\"message\":\"Veuillez vous connecter\""));
-		} catch (IOException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
-
-	@Test(priority = FIRST_PRIORITY)
-	public void postWihtoutLogin() {
-		try {
-			String res = mintraTaskRequest.post("/",
-					new JSONObject().put("some key", "some value"));
-			Assert.assertTrue(res
-					.contains("\"message\":\"Veuillez vous connecter\""));
-		} catch (IOException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
+		mIntraTaskRequest.getService("");
 	}
 
 	@Test(priority = SECOND_PRIORITY)
 	public void connect() {
-		try {
-			String res = mintraTaskRequest.connect(mLogin, mPassword);
-			Assert.assertTrue(res.contains("ip"));
-			Assert.assertTrue(res.contains("projets"));
-			Assert.assertTrue(res.contains("activites"));
+		JsonObject res = mIntraTaskRequest.connect(mLogin, mPassword);
+		Assert.assertTrue(res.has("ip"));
+		Assert.assertTrue(res.has("board"));
+		Assert.assertTrue(res.getAsJsonObject("board").has("projets"));
+		Assert.assertTrue(res.getAsJsonObject("board").has("activites"));
 
-		} catch (IOException e) {
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
 	}
 
 	@Test(priority = THIRD_PRIORITY)
 	public void getWithLogin() {
-		try {
-			String res = mintraTaskRequest.get("/");
-			Assert.assertTrue(res.contains("ip"));
-			Assert.assertTrue(res.contains("projets"));
-			Assert.assertTrue(res.contains("activites"));
-		} catch (IOException e) {
-		}
+		JsonObject res = mIntraTaskRequest.getService("");
+		Assert.assertTrue(res.has("ip"));
+		Assert.assertTrue(res.has("board"));
+		Assert.assertTrue(res.getAsJsonObject("board").has("projets"));
+		Assert.assertTrue(res.getAsJsonObject("board").has("activites"));
 	}
 
-	@Test(priority = THIRD_PRIORITY)
-	public void postWithLogin() {
-		try {
-			String res = mintraTaskRequest.post("/",
-					new JSONObject().put("some key", "some value"));
-			Assert.assertTrue(res.contains("ip"));
-			Assert.assertTrue(res.contains("projets"));
-			Assert.assertTrue(res.contains("activites"));
-		} catch (IOException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
-
-	@Test(priority = LAST_PRIORITY)
+	@Test(priority = LAST_PRIORITY, expectedExceptions = RetrofitError.class)
 	public void disconnectAndGet() {
-		try {
-			mintraTaskRequest.disconnect();
-			String res = mintraTaskRequest.get("/");
-			Assert.assertTrue(res
-					.contains("\"message\":\"Veuillez vous connecter\""));
-		} catch (IOException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
+		mIntraTaskRequest.disconnect();
+		mIntraTaskRequest.getService("");
 	}
 
 }
