@@ -8,15 +8,16 @@ import java.io.IOException;
 import java.io.Reader;
 import java.net.URISyntaxException;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
  * Unit test for simple App.
+ * 
+ * TODO better "file not found" handler in @BeforeClass Method
  */
 public class IntraEpitechRequestTaskTest {
 
@@ -45,8 +46,12 @@ public class IntraEpitechRequestTaskTest {
 		String[] res = null;
 
 		try {
+			if (new File(PASSWORDFILE).isFile() == false) {
+				throw new SkipException(
+						"You don't have {passwdFile} file, test finished now"
+								.replace("{passwdFile}", PASSWORDFILE));
+			}
 			file = new FileReader(PASSWORDFILE);
-			Assert.assertTrue(file.ready());
 			bufferFile = new BufferedReader(file);
 			Assert.assertTrue(bufferFile.ready());
 			res = bufferFile.readLine().split(":");
@@ -54,11 +59,12 @@ public class IntraEpitechRequestTaskTest {
 			mPassword = res[1];
 			file.close();
 			bufferFile.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+			mintraTaskRequest = new IntraEpitechRequestTask();
+		} catch (FileNotFoundException e) {
+			Assert.fail();
+		} catch (IOException e) {
 			Assert.fail();
 		}
-		mintraTaskRequest = new IntraEpitechRequestTask();
 	}
 
 	@Test(priority = FIRST_PRIORITY)
@@ -94,7 +100,8 @@ public class IntraEpitechRequestTaskTest {
 			Assert.assertTrue(res.contains("projets"));
 			Assert.assertTrue(res.contains("activites"));
 
-		} catch (Exception e) {
+		} catch (IOException e) {
+		} catch (URISyntaxException e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
@@ -107,9 +114,7 @@ public class IntraEpitechRequestTaskTest {
 			Assert.assertTrue(res.contains("ip"));
 			Assert.assertTrue(res.contains("projets"));
 			Assert.assertTrue(res.contains("activites"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail();
+		} catch (IOException e) {
 		}
 	}
 
