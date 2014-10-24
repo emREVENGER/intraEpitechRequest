@@ -1,4 +1,4 @@
-androidIntraEpitechRequest
+intraEpitechRequest
 ==========================
 
 a library to request intra.epitech.eu
