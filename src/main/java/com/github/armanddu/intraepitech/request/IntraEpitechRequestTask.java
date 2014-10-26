@@ -1,4 +1,4 @@
-package com.github.armanddu.intraepitechrequest;
+package com.github.armanddu.intraepitech.request;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 
 import com.google.gson.JsonObject;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
 import retrofit.RestAdapter;
 
 public class IntraEpitechRequestTask
@@ -33,16 +35,28 @@ public class IntraEpitechRequestTask
 	}
 
 	public JsonObject connect(String login, String password) {
-		return mService.connect(login, password);
+		try {
+			return mService.connect(login, password);
+		} catch (RetrofitError e) {
+			return (JsonObject) e.getBody();
+		}
 	}
 
 	public JsonObject getService(String Service) {
-		return mService.getService(Service);
+		try {
+			return mService.getService(Service);
+		} catch (RetrofitError e) {
+			return (JsonObject) e.getBody();
+		}
 	}
 
 	public JsonObject postToken(String tokenUrl, String token, String note,
 			String comment) {
-		return mService.postToken(tokenUrl, token, note, comment);
+		try {
+			return mService.postToken(tokenUrl, token, note, comment);
+		} catch (RetrofitError e) {
+			return (JsonObject) e.getBody();
+		}
 	}
 
 	public void disconnect() {
@@ -50,4 +64,17 @@ public class IntraEpitechRequestTask
 		mCookieManager = null;
 	}
 
+	public void connect(String login, String password,
+			Callback<JsonObject> callback) {
+		mService.connect(login, password, callback);
+	}
+
+	public void getService(String Service, Callback<JsonObject> callback) {
+		mService.getService(Service, callback);
+	}
+
+	public void postToken(String tokenUrl, String token, String note,
+			String comment, Callback<JsonObject> callback) {
+		mService.postToken(tokenUrl, token, note, comment, callback);
+	}
 }

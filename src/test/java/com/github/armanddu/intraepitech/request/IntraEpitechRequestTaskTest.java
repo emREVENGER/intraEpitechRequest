@@ -1,4 +1,4 @@
-package com.github.armanddu.intraepitechrequest;
+package com.github.armanddu.intraepitech.request;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,8 +13,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import retrofit.RetrofitError;
-
+import com.github.armanddu.intraepitech.request.IntraEpitechRequestTask;
 import com.google.gson.JsonObject;
 
 /**
@@ -72,9 +71,22 @@ public class IntraEpitechRequestTaskTest {
 		}
 	}
 
-	@Test(priority = FIRST_PRIORITY, expectedExceptions = RetrofitError.class)
+	@Test(priority = FIRST_PRIORITY)
 	public void getWithoutLogin() {
-		mIntraTaskRequest.getService("");
+		JsonObject res = mIntraTaskRequest.getService("");
+		Assert.assertTrue(res.has("board"));
+		Assert.assertTrue(res.has("message"));
+		Assert.assertEquals(res.get("board").getAsJsonArray().size(), 0);
+	}
+
+	@Test(priority = FIRST_PRIORITY)
+	public void connect403AccessDenied() {
+		JsonObject res = mIntraTaskRequest.connect("login_x", "");
+		Assert.assertTrue(res.has("board"));
+		Assert.assertTrue(res.has("message"));
+		Assert.assertTrue(res.has("login"));
+		Assert.assertEquals(res.get("board").getAsJsonArray().size(), 0);
+		System.out.println(res);
 	}
 
 	@Test(priority = SECOND_PRIORITY)
@@ -88,6 +100,15 @@ public class IntraEpitechRequestTaskTest {
 	}
 
 	@Test(priority = THIRD_PRIORITY)
+	public void get404NotFoundService() {
+		JsonObject res = mIntraTaskRequest.getService("some random service");
+		Assert.assertFalse(res.has("board"));
+		Assert.assertTrue(res.has("error"));
+		Assert.assertTrue(res.has("exception"));
+		Assert.assertTrue(res.has("message"));
+	}
+
+	@Test(priority = THIRD_PRIORITY)
 	public void getWithLogin() {
 		JsonObject res = mIntraTaskRequest.getService("");
 		Assert.assertTrue(res.has("ip"));
@@ -96,7 +117,7 @@ public class IntraEpitechRequestTaskTest {
 		Assert.assertTrue(res.getAsJsonObject("board").has("activites"));
 	}
 
-	@Test(priority = LAST_PRIORITY, expectedExceptions = RetrofitError.class)
+	@Test(priority = LAST_PRIORITY)
 	public void disconnectAndGet() {
 		mIntraTaskRequest.disconnect();
 		mIntraTaskRequest.getService("");
