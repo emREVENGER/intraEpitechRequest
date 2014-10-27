@@ -85,6 +85,15 @@ public class IntraEpitechRequestTaskTest {
 	}
 
 	@Test(priority = FIRST_PRIORITY)
+	public void disconnectBeforeConnect() {
+		JsonObject res = mIntraTaskRequest.disconnect();
+
+		Assert.assertTrue(res.has("message"));
+		Assert.assertEquals(res.get("message").getAsString(),
+				"You are not loggued in");
+	}
+
+	@Test(priority = FIRST_PRIORITY)
 	public void getWithoutLoginCallback() {
 		mIntraTaskRequest.getService("", new Callback<JsonObject>() {
 
@@ -156,16 +165,21 @@ public class IntraEpitechRequestTaskTest {
 			}
 		});
 	}
+	
+	@Test(priority = LAST_PRIORITY)
+	public void disconnectThenReconnect() {
+		JsonObject res = mIntraTaskRequest.disconnect();
+		Assert.assertTrue(res.toString().equals("{}"));
+		connect();
+	}
 
 	@Test(priority = LAST_PRIORITY)
 	public void disconnectAndGet() {
 		JsonObject res = mIntraTaskRequest.disconnect();
 		Assert.assertTrue(res.toString().equals("{}"));
-
-		res = mIntraTaskRequest.getService("");
-		Assert.assertTrue(res.has("board"));
-		Assert.assertTrue(res.has("message"));
-		Assert.assertEquals(res.get("board").getAsJsonArray().size(), 0);
+		getWithoutLogin();
+		// don't forget to reconnect for other tests
+		connect();
 	}
 
 }
