@@ -84,6 +84,6 @@ public class IntraEpitechRequestTask
 
 	@Override
 	public void disconnect(Callback<JsonObject> callback) {
-		mService.disconnect();
+		mService.disconnect(callback);
 	}
 }
