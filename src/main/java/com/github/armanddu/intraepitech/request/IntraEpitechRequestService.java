@@ -36,4 +36,10 @@ public interface IntraEpitechRequestService {
 			@Field("token") String token,
 			@Field("note") String note,
 			@Field("comment") String comment, Callback<JsonObject> callback);
+
+	@POST("/logout?format=json")
+	JsonObject disconnect();
+	@POST("/logout?format=json")
+	void disconnect(Callback<JsonObject> callback);
+	
 }

@@ -59,11 +59,6 @@ public class IntraEpitechRequestTask
 		}
 	}
 
-	public void disconnect() {
-		CookieHandler.setDefault(null);
-		mCookieManager = null;
-	}
-
 	public void connect(String login, String password,
 			Callback<JsonObject> callback) {
 		mService.connect(login, password, callback);
@@ -76,5 +71,19 @@ public class IntraEpitechRequestTask
 	public void postToken(String tokenUrl, String token, String note,
 			String comment, Callback<JsonObject> callback) {
 		mService.postToken(tokenUrl, token, note, comment, callback);
+	}
+
+	@Override
+	public JsonObject disconnect() {
+		try {
+			return mService.disconnect();
+		} catch (RetrofitError e) {
+			return (JsonObject) e.getBody();
+		}
+	}
+
+	@Override
+	public void disconnect(Callback<JsonObject> callback) {
+		mService.disconnect();
 	}
 }

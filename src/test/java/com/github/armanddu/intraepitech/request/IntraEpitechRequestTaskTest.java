@@ -13,13 +13,18 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 import com.github.armanddu.intraepitech.request.IntraEpitechRequestTask;
 import com.google.gson.JsonObject;
 
 /**
- * Unit test for simple App.
+ * Unit test for {@link IntraEpitechRequestTask}.
  * 
- * TODO better "file not found" handler in @BeforeClass Method
+ * TODO better "file not found" handler in @BeforeClass Method TODO add a way to
+ * test callbacks tests
  */
 public class IntraEpitechRequestTaskTest {
 
@@ -80,6 +85,22 @@ public class IntraEpitechRequestTaskTest {
 	}
 
 	@Test(priority = FIRST_PRIORITY)
+	public void getWithoutLoginCallback() {
+		mIntraTaskRequest.getService("", new Callback<JsonObject>() {
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				Assert.assertTrue(true);
+			}
+
+			@Override
+			public void success(JsonObject arg0, Response arg1) {
+				Assert.fail();
+			}
+		});
+	}
+
+	@Test(priority = FIRST_PRIORITY)
 	public void connect403AccessDenied() {
 		JsonObject res = mIntraTaskRequest.connect("login_x", "");
 		Assert.assertTrue(res.has("board"));
@@ -117,10 +138,34 @@ public class IntraEpitechRequestTaskTest {
 		Assert.assertTrue(res.getAsJsonObject("board").has("activites"));
 	}
 
+	@Test(priority = THIRD_PRIORITY)
+	public void getWithLoginCallback() {
+		mIntraTaskRequest.getService("", new Callback<JsonObject>() {
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				Assert.assertTrue(false);
+			}
+
+			@Override
+			public void success(JsonObject res, Response response) {
+				Assert.assertTrue(res.has("ip"));
+				Assert.assertTrue(res.has("board"));
+				Assert.assertTrue(res.getAsJsonObject("board").has("projets"));
+				Assert.assertTrue(res.getAsJsonObject("board").has("activites"));
+			}
+		});
+	}
+
 	@Test(priority = LAST_PRIORITY)
 	public void disconnectAndGet() {
-		mIntraTaskRequest.disconnect();
-		mIntraTaskRequest.getService("");
+		JsonObject res = mIntraTaskRequest.disconnect();
+		Assert.assertTrue(res.toString().equals("{}"));
+
+		res = mIntraTaskRequest.getService("");
+		Assert.assertTrue(res.has("board"));
+		Assert.assertTrue(res.has("message"));
+		Assert.assertEquals(res.get("board").getAsJsonArray().size(), 0);
 	}
 
 }
