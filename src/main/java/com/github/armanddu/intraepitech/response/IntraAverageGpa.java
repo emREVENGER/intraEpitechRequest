@@ -15,12 +15,8 @@ public class IntraAverageGpa {
 		return cycle;
 	}
 
-	public void setCycle(String cycle) {
-		this.cycle = cycle;
-	}
-
 	public Number getGpa_average() {
-		return  Float.valueOf(gpa_average);
+		return Float.valueOf(gpa_average);
 	}
 
 }

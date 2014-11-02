@@ -1,5 +1,7 @@
 package com.github.armanddu.intraepitech.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /*
  {
  "title":"[Stras'Up] Conf\u00e9rence \"Cr\u00e9er son entreprise\"",
@@ -22,7 +24,8 @@ package com.github.armanddu.intraepitech.response;
 public class IntraActivity {
 
 	private String	title;
-	private String	module;
+	@SerializedName("module")
+	private String	moduleName;
 	private String	module_link;
 	private String	module_code;
 	private String	title_link;
@@ -40,8 +43,8 @@ public class IntraActivity {
 		return title;
 	}
 
-	public String getModule() {
-		return module;
+	public String getModuleName() {
+		return moduleName;
 	}
 
 	public String getModule_link() {
