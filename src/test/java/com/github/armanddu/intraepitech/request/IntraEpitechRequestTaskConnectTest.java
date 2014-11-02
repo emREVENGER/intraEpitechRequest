@@ -11,8 +11,11 @@ import com.github.armanddu.intraepitech.response.IntraBoard;
 import com.github.armanddu.intraepitech.response.IntraCurrentInfos;
 import com.github.armanddu.intraepitech.response.IntraHistory;
 import com.github.armanddu.intraepitech.response.IntraGlobalInfos;
+import com.github.armanddu.intraepitech.response.IntraModule;
 import com.github.armanddu.intraepitech.response.IntraNote;
+import com.github.armanddu.intraepitech.response.IntraProject;
 import com.github.armanddu.intraepitech.response.IntraSusie;
+import com.github.armanddu.intraepitech.response.IntraUserInfo;
 
 public class IntraEpitechRequestTaskConnectTest
 		extends IntraEpitechRequestTaskPrepareTest {
@@ -71,6 +74,12 @@ public class IntraEpitechRequestTaskConnectTest
 		Assert.assertNotNull(infos.getUserdocs());
 		Assert.assertNotNull(infos.getUserinfo());
 
+		Assert.assertFalse(infos.isAdmin());
+		Assert.assertFalse(infos.isClose());
+
+		Assert.assertTrue(infos.isInvited());
+		Assert.assertTrue(infos.isReferent_used());
+
 	}
 
 	@Test(dependsOnMethods = "test_response_content")
@@ -99,8 +108,9 @@ public class IntraEpitechRequestTaskConnectTest
 		Assert.assertNotNull(board.getModules());
 		Assert.assertNotNull(board.getNotes());
 		Assert.assertNotNull(board.getProjects());
-		Assert.assertNotNull(board.getStages());
+		Assert.assertNotNull(board.getInternships());
 		Assert.assertNotNull(board.getSusies());
+		Assert.assertNotNull(board.getTickets());
 	}
 
 	@Test(dependsOnMethods = "test_board_content")
@@ -108,6 +118,9 @@ public class IntraEpitechRequestTaskConnectTest
 		List<IntraActivity> activities = response.getBoard().getActivities();
 		for (IntraActivity activity : activities) {
 			Assert.assertNotNull(activity);
+			Assert.assertNotNull(activity.getTitle());
+			if (!activity.getTitle().contains("Coaching individuel"))
+				Assert.assertNotNull(activity.getModuleName());
 			Assert.assertNotNull(activity.getModule_code());
 			Assert.assertNotNull(activity.getModule_link());
 			Assert.assertNotNull(activity.getRegister_link());
@@ -115,7 +128,6 @@ public class IntraEpitechRequestTaskConnectTest
 			Assert.assertNotNull(activity.getTimeline_barre());
 			Assert.assertNotNull(activity.getTimeline_end());
 			Assert.assertNotNull(activity.getTimeline_start());
-			Assert.assertNotNull(activity.getTitle());
 			Assert.assertNotNull(activity.getTitle_link());
 			Assert.assertNotNull(activity.getToken_link());
 		}
@@ -123,7 +135,18 @@ public class IntraEpitechRequestTaskConnectTest
 
 	@Test(dependsOnMethods = "test_board_content")
 	public void test_modules_content() {
+		List<IntraModule> modules = response.getBoard().getModules();
 
+		Assert.assertNotNull(modules);
+		for (IntraModule module : modules) {
+			Assert.assertNotNull(module);
+			Assert.assertNotNull(module.getDate_inscription());
+			Assert.assertNotNull(module.getTimeline_barre());
+			Assert.assertNotNull(module.getTimeline_end());
+			Assert.assertNotNull(module.getTimeline_start());
+			Assert.assertNotNull(module.getTitle());
+			Assert.assertNotNull(module.getTitle_link());
+		}
 	}
 
 	@Test(dependsOnMethods = "test_board_content")
@@ -131,25 +154,42 @@ public class IntraEpitechRequestTaskConnectTest
 		List<IntraNote> notes = response.getBoard().getNotes();
 
 		Assert.assertNotNull(notes);
-		// TODO add test
+		for (IntraNote note : notes) {
+			Assert.assertNotNull(note);
+			Assert.assertNotNull(note.getNote());
+			Assert.assertNotNull(note.getNoteur());
+			Assert.assertNotNull(note.getTitle());
+			Assert.assertNotNull(note.getTitle_link());
+		}
 	}
 
 	@Test(dependsOnMethods = "test_board_content")
 	public void test_projects_content() {
-		List<IntraNote> notes = response.getBoard().getNotes();
+		List<IntraProject> projects = response.getBoard().getProjects();
 
-		Assert.assertNotNull(notes);
-		// TODO add test
+		Assert.assertNotNull(projects);
+		for (IntraProject project : projects) {
+			Assert.assertNotNull(project);
+			Assert.assertNotNull(project.getDate_inscription());
+			Assert.assertNotNull(project.getId_activite());
+			Assert.assertNotNull(project.getSoutenance_date());
+			Assert.assertNotNull(project.getSoutenance_link());
+			Assert.assertNotNull(project.getSoutenance_name());
+			Assert.assertNotNull(project.getSoutenance_salle());
+			Assert.assertNotNull(project.getTimeline_barre());
+			Assert.assertNotNull(project.getTimeline_end());
+			Assert.assertNotNull(project.getTimeline_start());
+			Assert.assertNotNull(project.getTitle());
+			Assert.assertNotNull(project.getTitle_link());
 
+		}
 	}
 
 	@Test(dependsOnMethods = "test_board_content")
 	public void test_stages_content() {
-		List<Void> stages = response.getBoard().getStages();
+		List<Void> stages = response.getBoard().getInternships();
 
 		Assert.assertNotNull(stages);
-		// TODO add test
-
 	}
 
 	@Test(dependsOnMethods = "test_board_content")
@@ -157,7 +197,18 @@ public class IntraEpitechRequestTaskConnectTest
 		List<IntraSusie> susies = response.getBoard().getSusies();
 
 		Assert.assertNotNull(susies);
-		// TODO add test
+		for (IntraSusie susie : susies) {
+			Assert.assertNotNull(susie);
+			Assert.assertNotNull(susie.getCreneau_link());
+			Assert.assertNotNull(susie.getEtat());
+			Assert.assertNotNull(susie.getIntervenant());
+			Assert.assertNotNull(susie.getSalle());
+			Assert.assertNotNull(susie.getTimeline_barre());
+			Assert.assertNotNull(susie.getTimeline_end());
+			Assert.assertNotNull(susie.getTimeline_start());
+			Assert.assertNotNull(susie.getTitle());
+			Assert.assertNotNull(susie.getType());
+		}
 
 	}
 
@@ -167,19 +218,22 @@ public class IntraEpitechRequestTaskConnectTest
 
 		for (IntraHistory entry : history) {
 			Assert.assertNotNull(entry);
-			Assert.assertNotNull(entry.getClass_type());
+			Assert.assertNotNull(entry.getClassType());
 			Assert.assertNotNull(entry.getContent());
 			Assert.assertNotNull(entry.getDate());
 			Assert.assertNotNull(entry.getId());
-			Assert.assertNotNull(entry.getId_activite());
+			Assert.assertNotNull(entry.getIdActivity());
 			Assert.assertNotNull(entry.getTitle());
 			Assert.assertNotNull(entry.getUser());
+			test_user_content(entry.getUser());
 			Assert.assertNotNull(entry.getVisible());
 		}
 	}
 
-	@Test(dependsOnMethods = "test_history_content")
-	public void test_user_content() {
+	private void test_user_content(IntraUserInfo userInfo) {
+		Assert.assertNotNull(userInfo.getPicture());
+		Assert.assertNotNull(userInfo.getTitle());
+		Assert.assertNotNull(userInfo.getUrl());
 	}
 
 }
