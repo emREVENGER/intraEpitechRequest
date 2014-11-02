@@ -23,8 +23,4 @@ public class IntraAverageGpa {
 		return  Float.valueOf(gpa_average);
 	}
 
-	public void setGpa_average(Number gpa_average) {
-		this.gpa_average = String.valueOf(gpa_average);
-	}
-
 }

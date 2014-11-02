@@ -16,32 +16,16 @@ public class IntraNote {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getTitle_link() {
 		return title_link;
 	}
 
-	public void setTitle_link(String title_link) {
-		this.title_link = title_link;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
+	public Number getNote() {
+		return Double.valueOf(note);
 	}
 
 	public String getNoteur() {
 		return noteur;
-	}
-
-	public void setNoteur(String noteur) {
-		this.noteur = noteur;
 	}
 
 }

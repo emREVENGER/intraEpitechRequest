@@ -1,9 +1,22 @@
 package com.github.armanddu.intraepitech.response;
 
+/*
+ {
+ "title":"Semaine actuelle - Gabrielle",
+ "creneau_link":"\/planning\/2159\/23147\/",
+ "timeline_start":"05\/11\/2014, 17h00",
+ "timeline_barre":"0.0000",
+ "timeline_end":"05\/11\/2014, 19h00",
+ "salle":"Gabrielle",
+ "intervenant":"romero_g",
+ "etat":"inscrit",
+ "type":"fun"
+ }
+ */
 public class IntraSusie {
 
 	private String	title;
-	private String	crenneau_link;
+	private String	creneau_link;
 	private String	timeline_start;
 	private String	timeline_barre;
 	private String	timeline_end;
@@ -16,72 +29,36 @@ public class IntraSusie {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getCrenneau_link() {
-		return crenneau_link;
-	}
-
-	public void setCrenneau_link(String crenneau_link) {
-		this.crenneau_link = crenneau_link;
+	public String getCreneau_link() {
+		return creneau_link;
 	}
 
 	public String getTimeline_start() {
 		return timeline_start;
 	}
 
-	public void setTimeline_start(String timeline_start) {
-		this.timeline_start = timeline_start;
-	}
-
-	public String getTimeline_barre() {
-		return timeline_barre;
-	}
-
-	public void setTimeline_barre(String timeline_barre) {
-		this.timeline_barre = timeline_barre;
+	public Number getTimeline_barre() {
+		return Double.valueOf(timeline_barre);
 	}
 
 	public String getTimeline_end() {
 		return timeline_end;
 	}
 
-	public void setTimeline_end(String timeline_end) {
-		this.timeline_end = timeline_end;
-	}
-
 	public String getSalle() {
 		return salle;
-	}
-
-	public void setSalle(String salle) {
-		this.salle = salle;
 	}
 
 	public String getIntervenant() {
 		return intervenant;
 	}
 
-	public void setIntervenant(String intervenant) {
-		this.intervenant = intervenant;
-	}
-
 	public String getEtat() {
 		return etat;
 	}
 
-	public void setEtat(String etat) {
-		this.etat = etat;
-	}
-
 	public String getType() {
 		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 }

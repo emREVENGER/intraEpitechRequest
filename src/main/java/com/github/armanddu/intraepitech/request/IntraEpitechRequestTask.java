@@ -5,18 +5,7 @@ import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.github.armanddu.intraepitech.response.IntraActivity;
-import com.github.armanddu.intraepitech.response.IntraBoard;
-import com.github.armanddu.intraepitech.response.IntraCurrentInfos;
 import com.github.armanddu.intraepitech.response.IntraEpitechResponse;
-import com.github.armanddu.intraepitech.response.IntraGlobalInfos;
-import com.github.armanddu.intraepitech.response.IntraHistory;
-import com.github.armanddu.intraepitech.response.IntraModule;
-import com.github.armanddu.intraepitech.response.IntraNote;
-import com.github.armanddu.intraepitech.response.IntraProject;
 import com.github.armanddu.intraepitech.response.IntraUserResponse;
 import com.google.gson.JsonObject;
 
@@ -73,38 +62,6 @@ public class IntraEpitechRequestTask {
 
 	public void getServices(Callback<IntraEpitechResponse> callback) {
 		mService.getServices(callback);
-	}
-
-	public IntraBoard getBoard() throws RetrofitError {
-		return getServices().getBoard();
-	}
-
-	public List<IntraActivity> getActivities() throws RetrofitError {
-		return getBoard().getActivities();
-	}
-
-	public List<IntraProject> getProjects() throws RetrofitError {
-		return getBoard().getProjects();
-	}
-
-	public List<IntraModule> getModules() throws RetrofitError {
-		return getBoard().getModules();
-	}
-
-	public List<IntraNote> getNotes() throws RetrofitError {
-		return getBoard().getNotes();
-	}
-
-	public ArrayList<IntraHistory> getHistory() throws RetrofitError {
-		return getServices().getHistory();
-	}
-
-	public IntraGlobalInfos getInfos() throws RetrofitError {
-		return getServices().getInfos();
-	}
-
-	public IntraCurrentInfos getCurrentInfos() throws RetrofitError {
-		return getServices().getCurrentInfos();
 	}
 
 	public JsonObject postToken(TokenUrl tokenUrl, String token, String note,

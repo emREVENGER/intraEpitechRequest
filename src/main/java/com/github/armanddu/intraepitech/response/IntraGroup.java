@@ -16,24 +16,12 @@ public class IntraGroup {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Number getCount() {
 		return count;
-	}
-
-	public void setCount(Number count) {
-		this.count = count;
 	}
 
 }

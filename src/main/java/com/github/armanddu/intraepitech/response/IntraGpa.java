@@ -16,16 +16,8 @@ public class IntraGpa {
 		return Double.valueOf(gpa);
 	}
 
-	public void setGpa(Number gpa) {
-		this.gpa = String.valueOf(gpa);
-	}
-
 	public String getCycle() {
 		return cycle;
-	}
-
-	public void setCycle(String cycle) {
-		this.cycle = cycle;
 	}
 
 }

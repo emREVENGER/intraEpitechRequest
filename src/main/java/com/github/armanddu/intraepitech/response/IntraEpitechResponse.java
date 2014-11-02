@@ -18,48 +18,24 @@ public class IntraEpitechResponse {
 		return ip;
 	}
 
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-
 	public IntraBoard getBoard() {
 		return board;
-	}
-
-	public void setBoard(IntraBoard board) {
-		this.board = board;
 	}
 
 	public String getMessage() {
 		return message;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 	public IntraGlobalInfos getInfos() {
 		return infos;
-	}
-
-	public void setInfos(IntraGlobalInfos infos) {
-		this.infos = infos;
 	}
 
 	public IntraCurrentInfos getCurrentInfos() {
 		return currentInfos;
 	}
 
-	public void setCurrent(IntraCurrentInfos current) {
-		this.currentInfos = current;
-	}
-
 	public ArrayList<IntraHistory> getHistory() {
 		return history;
-	}
-
-	public void setHistory(ArrayList<IntraHistory> history) {
-		this.history = history;
 	}
 
 }

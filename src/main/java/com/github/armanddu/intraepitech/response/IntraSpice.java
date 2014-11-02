@@ -16,16 +16,8 @@ public class IntraSpice {
 		return Integer.valueOf(available_spice);
 	}
 
-	public void setAvailable_spice(Number available_spice) {
-		this.available_spice = available_spice.toString();
-	}
-
 	public Number getConsumed_spice() {
 		return consumed_spice;
-	}
-
-	public void setConsumed_spice(Number consumed_spice) {
-		this.consumed_spice = consumed_spice;
 	}
 
 }
