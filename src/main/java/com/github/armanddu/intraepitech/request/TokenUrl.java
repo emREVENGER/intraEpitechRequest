@@ -15,6 +15,8 @@ public class TokenUrl {
 	 * @param tokenUrl
 	 *            , formated like so
 	 *            "/module/<year>/<module_code>/<semester>/<id_activity>/<id_event>/token"
+	 *            
+	 *  TODO improve parsing
 	 */
 	public TokenUrl(String tokenUrl) {
 		splitTokenUrl(tokenUrl);
@@ -34,7 +36,7 @@ public class TokenUrl {
 	}
 
 	public String getTokenUrl() {
-		return "/module" + year + "/" + moduleCode + "/" + semester + "/"
+		return "/module/" + year + "/" + moduleCode + "/" + semester + "/"
 				+ idActivity + "/" + idEvent + "/token";
 	}
 
