@@ -21,7 +21,7 @@ public class IntraEpitechRequestTask {
 	private CookieManager				mCookieManager;
 	private IntraEpitechRequestService	mService;
 
-	public IntraEpitechRequestTask(String domain) throws URISyntaxException {
+	protected IntraEpitechRequestTask(String domain) throws URISyntaxException {
 
 		RestAdapter adaptater = new RestAdapter.Builder()
 				.setLogLevel(RestAdapter.LogLevel.FULL).setEndpoint(DOMAIN)
@@ -35,6 +35,10 @@ public class IntraEpitechRequestTask {
 		mCookieManager.getCookieStore().add(new URI(DOMAIN), cookie);
 		CookieHandler.setDefault(mCookieManager);
 		mService = adaptater.create(IntraEpitechRequestService.class);
+	}
+	
+	public IntraEpitechRequestTask() throws URISyntaxException {
+		this(DOMAIN);
 	}
 
 	public IntraEpitechResponse connect(String login, String password)
