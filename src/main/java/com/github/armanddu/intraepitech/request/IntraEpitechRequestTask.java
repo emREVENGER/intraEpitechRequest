@@ -17,8 +17,8 @@ import retrofit.RestAdapter;
 
 public class IntraEpitechRequestTask {
 
-	private final String				DOMAIN	= "https://intra.epitech.eu";
-	private CookieManager				mCookieManager;
+	private static final String		DOMAIN	= "https://intra.epitech.eu";
+	private CookieManager			mCookieManager;
 	private IntraEpitechRequestService	mService;
 
 	protected IntraEpitechRequestTask(String domain) throws URISyntaxException {
