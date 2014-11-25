@@ -1,76 +1,77 @@
 package com.github.armanddu.intraepitech.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /*
- {
- "active_log":"ii.iii",
- "credits_min":"ii",
- "credits_norm":"iii",
- "credits_obj":"iii",
- "nslog_min":"ii",
- "nslog_norm":"ii",
- "semester_code":"B5",
- "semester_num":"i",
- "achieved":iii,
- "failed":i,
- "inprogress":ii
- }
+ * { "active_log":"ii.iii", "credits_min":"ii", "credits_norm":"iii", "credits_obj":"iii",
+ * "nslog_min":"ii", "nslog_norm":"ii", "semester_code":"B5", "semester_num":"i", "achieved":iii,
+ * "failed":i, "inProgress":ii }
  */
 public class IntraCurrentInfos {
 
-	private String	active_log;
-	private String	credits_min;
-	private String	credits_norm;
-	private String	credits_obj;
-	private String	nslog_min;
-	private String	nslog_norm;
-	private String	semester_code;
-	private String	semester_num;
-	private Number	achieved;
-	private Number	failed;
-	private Number	inprogress;
+  @SerializedName("active_log")
+  private String activeLog;
+  @SerializedName("credits_min")
+  private String creditsMin;
+  @SerializedName("credits_norm")
+  private String creditsNorm;
+  @SerializedName("credits_obj")
+  private String creditsTarget;
+  @SerializedName("nslog_min")
+  private String minNslog;
+  @SerializedName("nslog_norm")
+  private String nslogNorm;
+  @SerializedName("semester_code")
+  private String semesterCode;
+  @SerializedName("semester_num")
+  private String semesterNum;
+  private int achieved;
+  private int failed;
+  @SerializedName("inProgress")
+  private int inProgress;
 
-	public Number getActive_log() {
-		return Double.valueOf(active_log);
-	}
+  public double getActiveLog() {
+    return Double.valueOf(activeLog);
+  }
 
-	public Number getCredits_min() {
-		return Integer.valueOf(credits_min);
-	}
+  public int getCreditsMin() {
+    return Integer.valueOf(creditsMin);
+  }
 
-	public Number getCredits_norm() {
-		return Integer.valueOf(credits_norm);
-	}
+  public int getCreditsNorm() {
+    return Integer.valueOf(creditsNorm);
+  }
 
-	public Number getCredits_obj() {
-		return Integer.valueOf(credits_obj);
-	}
+  public int getCreditsTarget() {
+    return Integer.valueOf(creditsTarget);
+  }
 
-	public Number getNslog_min() {
-		return Double.valueOf(nslog_min);
-	}
+  public double getMinNslog() {
+    return Double.valueOf(minNslog);
+  }
 
-	public Number getNslog_norm() {
-		return Double.valueOf(nslog_norm);
-	}
+  public double getNslogNorm() {
+    return Double.valueOf(nslogNorm);
+  }
 
-	public String getSemester_code() {
-		return semester_code;
-	}
+  public String getSemesterCode() {
+    return semesterCode;
+  }
 
-	public Number getSemester_num() {
-		return Integer.valueOf(semester_num);
-	}
+  public int getSemesterNum() {
+    return Integer.valueOf(semesterNum);
+  }
 
-	public Number getAchieved() {
-		return achieved;
-	}
+  public int getAchieved() {
+    return achieved;
+  }
 
-	public Number getFailed() {
-		return failed;
-	}
+  public int getFailed() {
+    return failed;
+  }
 
-	public Number getInprogress() {
-		return inprogress;
-	}
+  public int getInProgress() {
+    return inProgress;
+  }
 
 }

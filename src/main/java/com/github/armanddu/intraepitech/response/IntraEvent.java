@@ -1,34 +1,35 @@
 package com.github.armanddu.intraepitech.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /*
- {
- "id_event_failed":"iiii",
- "id_user":"iii",
- "begin":"2014-10-29 18:00:00",
- "id_activite_failed":"iii"
- }
+ * { "id_event_failed":"iiii", "id_user":"iii", "begin":"2014-10-29 18:00:00",
+ * "id_activite_failed":"iii" }
  */
 
 public class IntraEvent {
-	private String	id_event_failed;
-	private String	id_user;
-	private String	begin;
-	private String	id_activite_failed;
+  @SerializedName("id_event_failed")
+  private String idEventFailed;
+  @SerializedName("id_user")
+  private String idUser;
+  private String begin;
+  @SerializedName("id_activite_failed")
+  private String idActiviteFailed;
 
-	public Number getId_event_failed() {
-		return Integer.valueOf(id_event_failed);
-	}
+  public int getIdEventFailed() {
+    return Integer.parseInt(idEventFailed);
+  }
 
-	public Number getId_user() {
-		return Integer.valueOf(id_user);
-	}
+  public int getIdUser() {
+    return Integer.parseInt(idUser);
+  }
 
-	public String getBegin() {
-		return begin;
-	}
+  public String getBegin() {
+    return begin;
+  }
 
-	public Number getId_activite_failed() {
-		return Integer.valueOf(id_activite_failed);
-	}
+  public int getIdActiviteFailed() {
+    return Integer.parseInt(idActiviteFailed);
+  }
 
 }

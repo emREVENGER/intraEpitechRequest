@@ -1,61 +1,87 @@
 package com.github.armanddu.intraepitech.response;
 
+import com.google.gson.annotations.SerializedName;
+
 public class IntraProject {
 
-	private String	title;
-	private String	title_link;
-	private String	timeline_start;
-	private String	timeline_end;
-	private String	timeline_barre;
-	private String	date_inscription;
-	private String	id_activite;
-	private String	soutenance_name;
-	private String	soutenance_link;
-	private String	soutenance_date;
-	private String	soutenance_salle;
+  private String title;
+  @SerializedName("title_link")
+  private String titleLink;
+  @SerializedName("timeline_start")
+  private String timelineStart;
+  @SerializedName("timeline_end")
+  private String timelineEnd;
+  @SerializedName("timeline_barre")
+  private String timelineBarre;
+  @SerializedName("date_inscription")
+  private String dateInscription;
+  @SerializedName("id_activite")
+  private String activityId;
+  @SerializedName("soutenance_name")
+  private String soutenanceName;
+  @SerializedName("soutenance_link")
+  private String soutenanceLink;
+  @SerializedName("soutenance_date")
+  private String soutenanceDate;
+  @SerializedName("soutenance_salle")
+  private String soutenanceRoom;
 
-	public String getTitle() {
-		return title;
-	}
+  public String getTitle() {
+    return title;
+  }
 
-	public String getTitle_link() {
-		return title_link;
-	}
 
-	public String getTimeline_start() {
-		return timeline_start;
-	}
+  public double getTimelineBarre() {
+    return Double.valueOf(timelineBarre);
+  }
 
-	public String getTimeline_end() {
-		return timeline_end;
-	}
+  public int getActiviteId() {
+    return Integer.valueOf(activityId);
+  }
 
-	public Number getTimeline_barre() {
-		return Double.valueOf(timeline_barre);
-	}
 
-	public String getDate_inscription() {
-		return date_inscription;
-	}
+  public String getTitleLink() {
+    return titleLink;
+  }
 
-	public Number getId_activite() {
-		return Integer.valueOf(id_activite);
-	}
 
-	public String getSoutenance_name() {
-		return soutenance_name;
-	}
+  public String getTimelineStart() {
+    return timelineStart;
+  }
 
-	public String getSoutenance_link() {
-		return soutenance_link;
-	}
 
-	public String getSoutenance_date() {
-		return soutenance_date;
-	}
+  public String getTimelineEnd() {
+    return timelineEnd;
+  }
 
-	public String getSoutenance_salle() {
-		return soutenance_salle;
-	}
+
+  public String getDateInscription() {
+    return dateInscription;
+  }
+
+
+  public String getActivityId() {
+    return activityId;
+  }
+
+
+  public String getSoutenanceName() {
+    return soutenanceName;
+  }
+
+
+  public String getSoutenanceLink() {
+    return soutenanceLink;
+  }
+
+
+  public String getSoutenanceDate() {
+    return soutenanceDate;
+  }
+
+
+  public String getSoutenanceRoom() {
+    return soutenanceRoom;
+  }
 
 }

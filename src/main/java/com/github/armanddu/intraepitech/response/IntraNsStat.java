@@ -1,40 +1,39 @@
 package com.github.armanddu.intraepitech.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /*
- {
- "active":30.8,
- "idle":0,
- "out_active":41.1,
- "out_idle":0,
- "nslog_norm":25
- }
+ * { "active":30.8, "idle":0, "out_active":41.1, "out_idle":0, "nslog_norm":25 }
  */
 
 public class IntraNsStat {
-	private Number	active;
-	private Number	idle;
-	private Number	out_active;
-	private Number	out_idle;
-	private Number	nslog_norm;
+  private double active;
+  private double idle;
+  @SerializedName("out_active")
+  private double outActive;
+  @SerializedName("out_idle")
+  private double outIdle;
+  @SerializedName("nslog_norm")
+  private double nslogNorm;
 
-	public Number getActive() {
-		return active;
-	}
+  public double getActive() {
+    return active;
+  }
 
-	public Number getIdle() {
-		return idle;
-	}
+  public double getIdle() {
+    return idle;
+  }
 
-	public Number getOut_active() {
-		return out_active;
-	}
+  public double getOutActive() {
+    return outActive;
+  }
 
-	public Number getOut_idle() {
-		return out_idle;
-	}
+  public double getOutIdle() {
+    return outIdle;
+  }
 
-	public Number getNslog_norm() {
-		return nslog_norm;
-	}
+  public double getNslogNorm() {
+    return nslogNorm;
+  }
 
 }

@@ -1,5 +1,7 @@
 package com.github.armanddu.intraepitech.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /*
  {
  "cycle":"bachelor",
@@ -9,14 +11,15 @@ package com.github.armanddu.intraepitech.response;
 
 public class IntraAverageGpa {
 	private String	cycle;
-	private String	gpa_average;
+	@SerializedName("gpa_average")
+	private String	averageGpa;
 
 	public String getCycle() {
 		return cycle;
 	}
 
-	public Number getGpa_average() {
-		return Float.valueOf(gpa_average);
+	public double getAverageGpa() {
+		return Double.valueOf(averageGpa);
 	}
 
 }

@@ -23,7 +23,7 @@ public class TokenUrl {
 	}
 
 	public TokenUrl(IntraActivity activity) {
-		splitTokenUrl(activity.getToken_link());
+		splitTokenUrl(activity.getTokenLink());
 	}
 
 	private void splitTokenUrl(String tokenUrl) {

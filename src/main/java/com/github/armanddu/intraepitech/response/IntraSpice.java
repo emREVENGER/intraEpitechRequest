@@ -1,23 +1,24 @@
 package com.github.armanddu.intraepitech.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /*
- "{
- "available_spice":"30",
- "consumed_spice":120
- }
+ * "{ "available_spice":"30", "consumed_spice":120 }
  */
 
 public class IntraSpice {
 
-	private String	available_spice;
-	private Number	consumed_spice;
+  @SerializedName("available_spice")
+  private String availableSpice;
+  @SerializedName("consumed_spice")
+  private int consumedSpice;
 
-	public Number getAvailable_spice() {
-		return Integer.valueOf(available_spice);
-	}
+  public int getAvailableSpice() {
+    return Integer.valueOf(availableSpice);
+  }
 
-	public Number getConsumed_spice() {
-		return consumed_spice;
-	}
+  public int getConsumedSpice() {
+    return consumedSpice;
+  }
 
 }

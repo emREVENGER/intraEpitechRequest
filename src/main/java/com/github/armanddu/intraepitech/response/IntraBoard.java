@@ -22,7 +22,8 @@ public class IntraBoard {
 
 	@SerializedName("projets")
 	private List<IntraProject>	projects;
-	private List<IntraNote>		notes;
+	@SerializedName("notes")
+	private List<IntraNote>		grades;
 	private List<IntraSusie>	susies;
 	@SerializedName("activites")
 	private List<IntraActivity>	activities;
@@ -35,8 +36,8 @@ public class IntraBoard {
 		return projects;
 	}
 
-	public List<IntraNote> getNotes() {
-		return notes;
+	public List<IntraNote> getGrades() {
+		return grades;
 	}
 
 	public List<IntraSusie> getSusies() {

@@ -1,5 +1,4 @@
-package com.github.armanddu.intraepitech.request;
-
+package com.github.armanddu.intraepitech;
 import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -8,33 +7,15 @@ import retrofit.http.POST;
 import retrofit.http.Path;
 
 import com.github.armanddu.intraepitech.response.IntraEpitechResponse;
-import com.github.armanddu.intraepitech.response.IntraUserResponse;
 import com.google.gson.JsonObject;
 
-public interface IntraEpitechRequestService {
+public interface IntraEpitechModulesService {
 	
-	@FormUrlEncoded
-	@POST("/?format=json")
-	IntraEpitechResponse connect(@Field("login") String login,
-			@Field("password") String password);
-
-	@FormUrlEncoded
-	@POST("/?format=json")
-	void connect(@Field("login") String login,
-			@Field("password") String password, Callback<IntraEpitechResponse> callback);
-
 	@GET("/?format=json")
 	IntraEpitechResponse getServices();
 
 	@GET("/?format=json")
 	void getServices(Callback<IntraEpitechResponse> callback);
-
-	@GET("/user/{username}?format=json")
-	IntraUserResponse getUser(@Path("username") String userName);
-
-	@GET("/user/{username}?format=json")
-	void getUser(@Path("username") String userName,
-			Callback<IntraUserResponse> callback);
 
 	@FormUrlEncoded
 	@POST("/module/{year}/{module}/{semester}/{activity}/{event}/token?format=json")
@@ -55,11 +36,5 @@ public interface IntraEpitechRequestService {
 					@Field("note") String note,
 					@Field("comment") String comment,
 					Callback<JsonObject> callback);
-
-	@POST("/logout?format=json")
-	IntraEpitechResponse disconnect();
-
-	@POST("/logout?format=json")
-	void disconnect(Callback<IntraEpitechResponse> callback);
 
 }

@@ -10,7 +10,7 @@ package com.github.armanddu.intraepitech.response;
 public class IntraGroup {
 	private String	title;
 	private String	name;
-	private Number	count;
+	private int	count;
 
 	public String getTitle() {
 		return title;
@@ -20,7 +20,7 @@ public class IntraGroup {
 		return name;
 	}
 
-	public Number getCount() {
+	public int getCount() {
 		return count;
 	}
 

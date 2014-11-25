@@ -12,8 +12,8 @@ public class IntraGpa {
 	private String	gpa;
 	private String	cycle;
 
-	public Number getGpa() {
-		return Double.valueOf(gpa);
+	public double getGpa() {
+		return Double.parseDouble(gpa);
 	}
 
 	public String getCycle() {

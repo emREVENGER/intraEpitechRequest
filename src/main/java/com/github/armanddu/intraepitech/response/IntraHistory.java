@@ -24,7 +24,7 @@ public class IntraHistory {
 	private String			id;
 	private String			visible;
 	@SerializedName("id_activite")
-	private String			idActivity;
+  private String idActivity;
 	@SerializedName("class")
 	private String			classType;
 
@@ -52,8 +52,8 @@ public class IntraHistory {
 		return visible;
 	}
 
-	public Number getIdActivity() {
-		return Integer.valueOf(idActivity);
+	public int getIdActivity() {
+		return Integer.parseInt(idActivity);
 	}
 
 	public String getClassType() {
