@@ -7,23 +7,21 @@ import retrofit.http.POST;
 
 import com.github.armanddu.intraepitech.response.IntraEpitechResponse;
 
-public interface IntraEpitechAuthentificationService {
+public interface AuthentificationService {
 
-	@FormUrlEncoded
-	@POST("/?format=json")
-	IntraEpitechResponse connect(@Field("login") String login,
-			@Field("password") String password);
+  @FormUrlEncoded
+  @POST("/?format=json")
+  IntraEpitechResponse connect(@Field("login") String login, @Field("password") String password);
 
-	@FormUrlEncoded
-	@POST("/?format=json")
-	void connect(@Field("login") String login,
-			@Field("password") String password,
-			Callback<IntraEpitechResponse> callback);
+  @FormUrlEncoded
+  @POST("/?format=json")
+  void connect(@Field("login") String login, @Field("password") String password,
+      Callback<IntraEpitechResponse> callback);
 
-	@POST("/logout?format=json")
-	IntraEpitechResponse disconnect();
+  @POST("/logout?format=json")
+  IntraEpitechResponse disconnect();
 
-	@POST("/logout?format=json")
-	void disconnect(Callback<IntraEpitechResponse> callback);
+  @POST("/logout?format=json")
+  void disconnect(Callback<IntraEpitechResponse> callback);
 
 }

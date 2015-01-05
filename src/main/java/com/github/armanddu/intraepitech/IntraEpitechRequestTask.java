@@ -21,9 +21,9 @@ public class IntraEpitechRequestTask {
 
   private final String DOMAIN = "https://intra.epitech.eu";
   private final CookieManager cookieManager;
-  private final IntraEpitechModulesService moduleService;
-  private final IntraEpitechAuthentificationService authService;
-  private final IntraEpitechUserService userService;
+  private final ModuleService moduleService;
+  private final AuthentificationService authService;
+  private final UserService userService;
 
   public IntraEpitechRequestTask(String domain) throws URISyntaxException {
 
@@ -38,9 +38,9 @@ public class IntraEpitechRequestTask {
     cookie.setDomain(domain == null ? DOMAIN : domain);
     cookieManager.getCookieStore().add(new URI(DOMAIN), cookie);
     CookieHandler.setDefault(cookieManager);
-    moduleService = adaptater.create(IntraEpitechModulesService.class);
-    authService = adaptater.create(IntraEpitechAuthentificationService.class);
-    userService = adaptater.create(IntraEpitechUserService.class);
+    moduleService = adaptater.create(ModuleService.class);
+    authService = adaptater.create(AuthentificationService.class);
+    userService = adaptater.create(UserService.class);
   }
 
   public IntraEpitechResponse connect(String login, String password) throws RetrofitError {
